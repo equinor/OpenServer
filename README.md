@@ -1,19 +1,28 @@
-# app/gov template
+# OpenServer
+Code for running Petroleum Experts OpenServer API commands in Python. More general information about this API protocol can be found on [Petroleum Experts'](https://www.petex.com/products/ipm-suite/openserver/) site.
+Please have a look at the [CONTRIBUTING.MD file](https://github.com/equinor/OpenServer/blob/master/CONTRIBUTING.md) if you want to contribute.
 
-application and/ or governance/ documentation repo template
 
-including kickstart of governance aspects
+## Python
 
-* be able to use this repo as template for a new repo
-  * be useful to fork as well?
-* be able to copy-paste parts, use guides for own, existing application repos
+#### Prerequisites
 
-## focal points of governance, starting points of documentation
+To run OpenServer commands in Python you need to install the pywin32 extension. Check out https://pypi.org/project/pywin32/
 
-### Architecture contract
+#### Getting started
+Lorem Lipsum
+pip install ...
 
-(or Architecture cont(r)act...)
 
-AC repo and info about process: https://github.com/equinor/architecturecontract 
+#### Example in Python
 
-[first draft of self assessment](doc/architecture-contract-first-draft.md) can be done here
+The following code will import the OpenServer module, start Prosper, open a Prosper file named C-2 on root drive and adding a comment into the comment section in Prosper.
+
+```
+import OpenServer
+
+DoCmd('PROSPER.START()')
+DoCmd('PROSPER.OPENFILE("C:\C-2.OUT")')
+DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
+```
+
