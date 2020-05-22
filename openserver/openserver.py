@@ -7,16 +7,29 @@ class OpenServer:
         self.server = None
 
     def connect(self):
+        """
+        Method used to connect to the Petroleum Experts com object which also checks out the license
+        """
         self.server = win32com.client.Dispatch("PX32.OpenServer.1")
         self.status = "Connected"
         return print("OpenServer is connected")
 
     def disconnect(self):
+        """
+        Method to check in the license
+        """
         self.server = None
         self.status = "Disconnected"
         return print("OpenServer has been disconnected")
 
     def DoCmd(self, Cmd):
+        """
+        The DoCmd function is used to perform calculations and other functions such as file
+        opening and saving in the PETEX programs.
+
+        Arguments:
+            Cmd {string} -- OpenServer access string
+        """
         if not self.status == 'Connected':
             self.connect()
         try:
@@ -27,6 +40,13 @@ class OpenServer:
             self.disconnect()
 
     def DoSet(self, Sv, Val):
+        """
+        The DoSet command is used to set the value of a data item
+
+        Arguments:
+            Sv {string} -- OpenServer access string
+            Val {} -- Value
+        """
         if not self.status == 'Connected':
             self.connect()
         try:
@@ -39,6 +59,15 @@ class OpenServer:
             self.disconnect()
 
     def DoGet(self, Gv):
+        """
+        The DoGet function is used to get the value of a data item or result
+
+        Arguments:
+            Gv {string} -- OpenServer access string
+
+        Returns:
+            Value of a data item or result
+        """
         if not self.status == 'Connected':
             self.connect()
         try:
