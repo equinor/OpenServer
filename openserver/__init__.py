@@ -1,1 +1,3 @@
-from .OpenServer import *
+from .openserver import *
+from .version import __version__
+
