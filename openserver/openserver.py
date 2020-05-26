@@ -71,12 +71,19 @@ class OpenServer:
         if not self.status == 'Connected':
             self.connect()
         try:
-            DoGet = self.server.GetValue(Gv)
+            value = self.server.GetValue(Gv)
             AppName = self.GetAppName(Gv)
             Err = self.server.GetLastError(AppName)
             if Err > 0:
                 print(self.server.GetLastErrorMessage(AppName))
-            return DoGet
+            if value.isdigit():  # Checking if integer
+                value = int(value)
+            else:
+                try:
+                    value = float(value)  # Checking if float
+                except ValueError:
+                    pass  # Fallback to string
+            return value
         except:
             self.disconnect()
 
