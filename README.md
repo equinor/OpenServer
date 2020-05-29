@@ -7,25 +7,16 @@ Please have a look at the [CONTRIBUTING.MD file](https://github.com/equinor/Open
 ## Python
 
 ### Getting started
-Lorem Lipsum
-pip install ...
-
+Install the required package:
+```
+pip install openserver
+```
 
 ### Example in Python
 
-There are two ways of using the functions, either by importing a class called OpenServer or by importing all modules. The first is the most "pythonic" way which can be used to disconnect from the license server. The latter is easier for those converting from visual basic style coding. 
+There are two ways of using the functions, either by importing a class called OpenServer or by importing all modules. The first is the most "pythonic" way which can be used to disconnect from the license server. The latter is easier for those converting from visual basic style coding environment. 
 
-The following code will import the OpenServer module, start Prosper, open a Prosper file named well_2 on root drive and adding a comment into the comment section in Prosper.
-
-#### by importing all modules ####
-
-```
-from openserver import *
-
-DoCmd('PROSPER.START()')
-DoCmd('PROSPER.OPENFILE("C:\well_2.OUT")')
-DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
-```
+The following code will import the OpenServer module, start Prosper, open a Prosper file named well_2 on C-drive and adding a comment into the comment section in Prosper.
 
 #### by using the class ####
 
@@ -41,3 +32,14 @@ c.DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
 
 c.disconnect()
 ```
+
+#### by importing all modules ####
+
+```
+from openserver import *
+
+DoCmd('PROSPER.START()')
+DoCmd('PROSPER.OPENFILE("C:\well_2.OUT")')
+DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
+```
+
