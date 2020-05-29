@@ -1,3 +1,6 @@
+# 1.0
+* Initial release
+
 # 0.4
 * Returns correct data type from DoGet function
 
