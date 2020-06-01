@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://raw.githubusercontent.com/equinor/openserver/Logochange/resources/logo.png" title="OpenServer"/>
+<img src="https://raw.githubusercontent.com/equinor/openserver/master/resources/logo.png" title="OpenServer"/>
 </p>
 
 # OpenServer
