@@ -1,3 +1,7 @@
+<p align="center">
+<img src="https://raw.githubusercontent.com/equinor/openserver/Logochange/resources/logo.png" title="OpenServer"/>
+</p>
+
 # OpenServer
 Code for running Petroleum Experts OpenServer API commands in Python. More general information about this API protocol can be found on [Petroleum Experts'](https://www.petex.com/products/ipm-suite/openserver/) site.
 
