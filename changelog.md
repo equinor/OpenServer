@@ -1,3 +1,6 @@
+## 1.0.1
+* Improved docstrings
+
 # 1.0
 * Initial release
 
