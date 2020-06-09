@@ -31,7 +31,7 @@ c = OpenServer()
 c.connect()
 
 c.DoCmd('PROSPER.START()')
-c.DoCmd('PROSPER.OPENFILE("C:\well_2.OUT")')
+c.DoCmd('PROSPER.OPENFILE("C:\\well_2.OUT")')
 c.DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
 
 c.disconnect()
@@ -43,7 +43,7 @@ c.disconnect()
 from openserver import *
 
 DoCmd('PROSPER.START()')
-DoCmd('PROSPER.OPENFILE("C:\well_2.OUT")')
+DoCmd('PROSPER.OPENFILE("C:\\well_2.OUT")')
 DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
 ```
 
