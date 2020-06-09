@@ -82,7 +82,7 @@ class OpenServer:
                 print(self.server.GetLastErrorMessage(AppName))
             if value.isdigit():  # Checking if integer
                 value = int(value)
-            elif '$' in Gv and type(value) == str:
+            elif '[$]' in Gv and type(value) == str:
                 value = np.fromstring(value, sep="|")
             else:
                 try:
