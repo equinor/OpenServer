@@ -17,5 +17,5 @@ setup(name='openserver',
       url='https://github.com/equinor/openserver',
       classifiers=["Programming Language :: Python :: 3"],
       packages=['openserver'],
-      install_requires=['pywin32>=227']
+      install_requires=['pywin32>=227', 'numpy']
 )

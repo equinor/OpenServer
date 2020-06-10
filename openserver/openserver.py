@@ -1,5 +1,5 @@
 import win32com.client
-
+import numpy as np
 
 class OpenServer:
     def __init__(self):
@@ -82,6 +82,8 @@ class OpenServer:
                 print(self.server.GetLastErrorMessage(AppName))
             if value.isdigit():  # Checking if integer
                 value = int(value)
+            elif '[$]' in Gv and type(value) == str:
+                value = np.fromstring(value, sep="|")
             else:
                 try:
                     value = float(value)  # Checking if float

@@ -1,3 +1,6 @@
+## 1.0.2
+* Added string parsing of results when [$] is supplied in a DoGet statement
+
 ## 1.0.1
 * Improved docstrings
 
