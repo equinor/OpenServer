@@ -47,11 +47,15 @@ class OpenServer:
 
         Arguments:
             Sv {string} -- OpenServer access string
-            Val {} -- Value
+            Val {} -- Value, list or a one-dimensional numpy array
         """
         if not self.status == 'Connected':
             self.connect()
         try:
+            if isinstance(Val, np.ndarray):  # Checks if input is numpy array
+                Val = np.array2string(Val, separator='|')[1:-1]
+            if isinstance(Val, list):  # Checks if input is list
+                Val = '|'.join([str(x) for x in Val])
             Err = self.server.SetValue(Sv, Val)
             AppName = self.GetAppName(Sv)
             Err = self.server.GetLastError(AppName)
@@ -68,9 +72,14 @@ class OpenServer:
 
         Arguments:
             Gv {string} -- OpenServer access string
+            Example
+            {'PROSPER.OUT.GRD.Results[0][0][0].TVD[0]'}
+            {'PROSPER.OUT.GRD.Results[0,1][0][0].TVD[0,1,2]'}
+            {'PROSPER.OUT.GRD.Results[0][0][0].TVD[$]'}
 
         Returns:
-            Value of a data item or result
+            Value of a data item or result.
+            Note: If an array is requested in Gv, a numpy array is returned.
         """
         if not self.status == 'Connected':
             self.connect()
@@ -80,10 +89,12 @@ class OpenServer:
             Err = self.server.GetLastError(AppName)
             if Err > 0:
                 print(self.server.GetLastErrorMessage(AppName))
+
             if value.isdigit():  # Checking if integer
                 value = int(value)
-            elif '[$]' in Gv and type(value) == str:
-                value = np.fromstring(value, sep="|")
+            elif '|' in value:  # Checking if | in string is returned
+                if any(x in Gv for x in (',', '[$]')):
+                    value = np.fromstring(value, sep="|")
             else:
                 try:
                     value = float(value)  # Checking if float
