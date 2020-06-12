@@ -47,7 +47,7 @@ class OpenServer:
 
         Arguments:
             Sv {string} -- OpenServer access string
-            Val {} -- Value
+            Val {} -- Value, list or a one-dimensional numpy array
         """
         if not self.status == 'Connected':
             self.connect()
@@ -72,9 +72,14 @@ class OpenServer:
 
         Arguments:
             Gv {string} -- OpenServer access string
+            Example
+            {'PROSPER.OUT.GRD.Results[0][0][0].TVD[0]'}
+            {'PROSPER.OUT.GRD.Results[0,1][0][0].TVD[0,1,2]'}
+            {'PROSPER.OUT.GRD.Results[0][0][0].TVD[$]'}
 
         Returns:
-            Value of a data item or result
+            Value of a data item or result.
+            Note: If an array is requested in Gv, a numpy array is returned.
         """
         if not self.status == 'Connected':
             self.connect()
