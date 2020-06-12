@@ -84,10 +84,12 @@ class OpenServer:
             Err = self.server.GetLastError(AppName)
             if Err > 0:
                 print(self.server.GetLastErrorMessage(AppName))
+
             if value.isdigit():  # Checking if integer
                 value = int(value)
-            elif '[$]' in Gv and type(value) == str:
-                value = np.fromstring(value, sep="|")
+            elif '|' in value:  # Checking if | in string is returned
+                if any(x in Gv for x in (',', '[$]')):
+                    value = np.fromstring(value, sep="|")
             else:
                 try:
                     value = float(value)  # Checking if float
