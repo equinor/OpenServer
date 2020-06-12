@@ -52,6 +52,10 @@ class OpenServer:
         if not self.status == 'Connected':
             self.connect()
         try:
+            if isinstance(Val, np.ndarray):  # Checks if input is numpy array
+                Val = np.array2string(Val, separator='|')[1:-1]
+            if isinstance(Val, list):  # Checks if input is list
+                Val = '|'.join([str(x) for x in Val])
             Err = self.server.SetValue(Sv, Val)
             AppName = self.GetAppName(Sv)
             Err = self.server.GetLastError(AppName)
