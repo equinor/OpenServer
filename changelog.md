@@ -1,3 +1,6 @@
+## 1.0.3
+* Improved list and array handling for DoGet and DoSet functions
+
 ## 1.0.2
 * Added string parsing of results when [$] is supplied in a DoGet statement
 
