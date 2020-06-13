@@ -1,3 +1,6 @@
+# 1.1
+* Added testing
+
 ## 1.0.3
 * Improved list and array handling for DoGet and DoSet functions
 
