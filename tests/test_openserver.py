@@ -41,13 +41,39 @@ def test_get_string():
 def test_get_full_array():
     assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[$].Md'), np.array([   0.,  100., 1000., 2000.]))
 
+# should be uncommented when part-array is working:
 #def test_get_parts_array():
 #    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[1:3].Md'), np.array([   100., 1000.]))
 
-def test_appname():
+def test_set_array():
+    day_of_year = datetime.now().timetuple().tm_yday
+    array = np.array([0, 1, 2, day_of_year])
+    c.DoSet('PROSPER.SIN.EQP.Gauge.Data[0:3].Depth', array)
+    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Gauge.Data[$].Depth'), array)  # should be changed to [0:3] when part-array is working
+
+# should be uncommented when part-array is working:
+#def test_set_list():
+#    values = ['top', datetime.now().strftime('%H:%M')]
+#    c.DoSet('PROSPER.SIN.EQP.Down.Data[0:1].Label', values)
+#    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Down.Data[0:1].Label'), values)
+
+def test_product_prefix():
+    with pytest.raises(ValueError, match='The tag string product prefix was not recognised'):
+        c.DoCmd('Excel.value')
+    with pytest.raises(ValueError, match='The tag string product prefix was not recognised'):
+        c.DoSet('Excel.value', 1)
     with pytest.raises(ValueError, match='The tag string product prefix was not recognised'):
         c.DoGet('Excel.value')
 
-# Can not figure out how to run these last two
-c.DoCmd('PROSPER.SHUTDOWN')
-c.disconnect()
+def test_variable_names():
+    with pytest.raises(ValueError, match='Command not recognised'):
+        c.DoCmd('PROSPER.value')
+    with pytest.raises(ValueError, match='Variable name was not found'):
+        c.DoSet('PROSPER.value', 1)
+    with pytest.raises(ValueError, match='Variable name was not found'):
+        c.DoGet('PROSPER.value')
+
+def test_end():
+    c.DoCmd('PROSPER.SHUTDOWN')
+    c.disconnect()
+    assert c.status == 'Disconnected'

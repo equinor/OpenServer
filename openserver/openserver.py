@@ -35,9 +35,12 @@ class OpenServer:
         try:
             Err = self.server.DoCommand(Cmd)
             if Err > 0:
-                print(self.server.GetErrorDescription(Err))
-        except:
+                self.error = self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+        except ValueError as exc:
+            print(exc)
             self.disconnect()
+            raise
 
     def DoSet(self, Sv, Val):
         """
@@ -60,9 +63,12 @@ class OpenServer:
             AppName = self.GetAppName(Sv)
             Err = self.server.GetLastError(AppName)
             if Err > 0:
-                print(self.server.GetErrorDescription(Err))
-        except:
+                self.error = self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+        except ValueError as exc:
+            print(exc)
             self.disconnect()
+            raise
 
     def DoGet(self, Gv):
         """
@@ -101,8 +107,8 @@ class OpenServer:
                 except ValueError:
                     pass  # Fallback to string
             return value
-        except ValueError as err:
-            print(err)
+        except ValueError as exc:
+            print(exc)
             self.disconnect()
             raise
 
