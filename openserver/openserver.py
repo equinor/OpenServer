@@ -99,8 +99,12 @@ class OpenServer:
             if value.isdigit():  # Checking if integer
                 value = int(value)
             elif '|' in value:  # Checking if | in string is returned
-                if any(x in Gv for x in (',', '[$]')):
-                    value = np.fromstring(value, sep="|")
+                if any(x in Gv for x in (',', '[$]', '@', ':', '_')):
+                    temp = np.fromstring(value[0:-1], sep="|", dtype=float)
+                    if temp.size == 0:  # non-numeric array returned
+                        value = np.array(value[0:-1].split('|'))
+                    else:
+                        value = temp
             else:
                 try:
                     value = float(value)  # Checking if float
