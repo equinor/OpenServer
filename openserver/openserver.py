@@ -100,11 +100,12 @@ class OpenServer:
                 value = int(value)
             elif '|' in value:  # Checking if | in string is returned
                 if any(x in Gv for x in (',', '[$]', '@', ':', '_')):
-                    temp = np.fromstring(value[0:-1], sep="|", dtype=float)
-                    if temp.size == 0:  # non-numeric array returned
-                        value = np.array(value[0:-1].split('|'))
+                    num_array = np.fromstring(value[0:-1], sep="|", dtype=float)
+                    str_array = np.array(value[0:-1].split('|'))
+                    if num_array.size == str_array.size:  
+                        value = num_array  # Return numeric array
                     else:
-                        value = temp
+                        value = str_array  # Return an array of strings
             else:
                 try:
                     value = float(value)  # Checking if float
