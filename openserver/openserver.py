@@ -35,9 +35,12 @@ class OpenServer:
         try:
             Err = self.server.DoCommand(Cmd)
             if Err > 0:
-                print(self.server.GetErrorDescription(Err))
-        except:
+                self.error = self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+        except ValueError as exc:
+            print(exc)
             self.disconnect()
+            raise
 
     def DoSet(self, Sv, Val):
         """
@@ -60,9 +63,12 @@ class OpenServer:
             AppName = self.GetAppName(Sv)
             Err = self.server.GetLastError(AppName)
             if Err > 0:
-                print(self.server.GetErrorDescription(Err))
-        except:
+                self.error = self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+        except ValueError as exc:
+            print(exc)
             self.disconnect()
+            raise
 
     def DoGet(self, Gv):
         """
@@ -88,8 +94,8 @@ class OpenServer:
             AppName = self.GetAppName(Gv)
             Err = self.server.GetLastError(AppName)
             if Err > 0:
-                print(self.server.GetLastErrorMessage(AppName))
-
+                self.error = self.server.GetLastErrorMessage(AppName)
+                raise ValueError(self.error)
             if value.isdigit():  # Checking if integer
                 value = int(value)
             elif '|' in value:  # Checking if | in string is returned
@@ -101,14 +107,13 @@ class OpenServer:
                 except ValueError:
                     pass  # Fallback to string
             return value
-        except:
+        except ValueError as exc:
+            print(exc)
             self.disconnect()
+            raise
 
     def GetAppName(self, Strval):
-        AppName = Strval.split('.')[0]
-        if AppName not in ['PROSPER', 'MBAL', 'GAP', 'PVT', 'RESOLVE']:
-            print('Unrecognised application name in tag string')
-        return AppName
+        return Strval.split('.')[0]
 
 def is_documented_by(original):
     def wrapper(target):
