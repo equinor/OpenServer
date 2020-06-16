@@ -6,6 +6,7 @@ import numpy as np
 
 my_path = os.path.abspath(os.path.dirname(__file__))
 prosperfile = os.path.join(my_path, "../resources/prosper_testfile.OUT")
+gapfile = os.path.join(my_path, "../resources/gap_testfile.gap")
 now = str(datetime.now())
 
 c = OpenServer()
@@ -14,6 +15,7 @@ c.connect()
 def test_openserver_functions():
     c.DoCmd('PROSPER.START()')
     c.DoCmd('PROSPER.OPENFILE("{}")'.format(prosperfile))
+    c.DoCmd('GAP.OPENFILE("{}")'.format(gapfile))
     c.DoSet("PROSPER.SIN.SUM.Comments", now)
     assert c.DoGet("PROSPER.SIN.SUM.Comments") == now
 
@@ -43,6 +45,12 @@ def test_get_full_array():
 
 def test_get_parts_array():
     assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[1:3].Md'), np.array([   100., 1000., 2000.]))
+
+def test_get_selection_array():
+    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[0,2].Tvd'), np.array([  0., 300.]))
+
+def test_get_equipment_array():
+    assert np.array_equal(c.DoGet('GAP.MOD[0].WELL[{@testWell#}].Label'), np.array(['testWell1', 'testWell2', 'testWell3', 'testWell4']))
 
 def test_set_array():
     day_of_year = datetime.now().timetuple().tm_yday
