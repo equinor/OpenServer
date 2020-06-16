@@ -1,3 +1,6 @@
+## 1.11
+* Revised array handling for DoGet
+
 # 1.1
 * Added testing
 
