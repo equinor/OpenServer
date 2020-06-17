@@ -1,6 +1,7 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/equinor/openserver/master/resources/logo.png" title="OpenServer"/>
 </p>
+[![PyPI](https://img.shields.io/pypi/v/openserver)](https://pypi.org/project/openserver/)
 
 # OpenServer
 Code for running Petroleum Experts OpenServer API commands in Python. More general information about this API protocol can be found on [Petroleum Experts'](https://www.petex.com/products/ipm-suite/openserver/) site.
