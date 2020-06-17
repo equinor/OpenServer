@@ -1,6 +1,7 @@
 <p align="center">
 <img src="https://raw.githubusercontent.com/equinor/openserver/master/resources/logo.png" title="OpenServer"/>
 </p>
+
 [![PyPI](https://img.shields.io/pypi/v/openserver)](https://pypi.org/project/openserver/)
 
 # OpenServer
