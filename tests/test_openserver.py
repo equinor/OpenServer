@@ -15,6 +15,7 @@ c.connect()
 def test_openserver_functions():
     c.DoCmd('PROSPER.START()')
     c.DoCmd('PROSPER.OPENFILE("{}")'.format(prosperfile))
+    c.DoCmd('GAP.START()')
     c.DoCmd('GAP.OPENFILE("{}")'.format(gapfile))
     c.DoSet("PROSPER.SIN.SUM.Comments", now)
     assert c.DoGet("PROSPER.SIN.SUM.Comments") == now
@@ -81,5 +82,6 @@ def test_variable_names():
 
 def test_end():
     c.DoCmd('PROSPER.SHUTDOWN')
+    c.DoCmd('GAP.SHUTDOWN')
     c.disconnect()
     assert c.status == 'Disconnected'
