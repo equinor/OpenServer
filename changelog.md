@@ -1,3 +1,6 @@
+## 1.11
+* Improved array return from DoGet 
+
 # 1.1
 * Added testing
 

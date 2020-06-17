@@ -6,6 +6,7 @@ import numpy as np
 
 my_path = os.path.abspath(os.path.dirname(__file__))
 prosperfile = os.path.join(my_path, "../resources/prosper_testfile.OUT")
+gapfile = os.path.join(my_path, "../resources/gap_testfile.gap")
 now = str(datetime.now())
 
 c = OpenServer()
@@ -14,6 +15,8 @@ c.connect()
 def test_openserver_functions():
     c.DoCmd('PROSPER.START()')
     c.DoCmd('PROSPER.OPENFILE("{}")'.format(prosperfile))
+    c.DoCmd('GAP.START()')
+    c.DoCmd('GAP.OPENFILE("{}")'.format(gapfile))
     c.DoSet("PROSPER.SIN.SUM.Comments", now)
     assert c.DoGet("PROSPER.SIN.SUM.Comments") == now
 
@@ -41,21 +44,25 @@ def test_get_string():
 def test_get_full_array():
     assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[$].Md'), np.array([   0.,  100., 1000., 2000.]))
 
-# should be uncommented when part-array is working:
-#def test_get_parts_array():
-#    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[1:3].Md'), np.array([   100., 1000.]))
+def test_get_parts_array():
+    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[1:3].Md'), np.array([   100., 1000., 2000.]))
+
+def test_get_selection_array():
+    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Devn.Data[0,2].Tvd'), np.array([  0., 300.]))
+
+def test_get_equipment_array():
+    assert np.array_equal(c.DoGet('GAP.MOD[0].WELL[{@testWell#}].Label'), np.array(['testWell1', 'testWell2', 'testWell3', 'testWell4']))
 
 def test_set_array():
     day_of_year = datetime.now().timetuple().tm_yday
     array = np.array([0, 1, 2, day_of_year])
     c.DoSet('PROSPER.SIN.EQP.Gauge.Data[0:3].Depth', array)
-    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Gauge.Data[$].Depth'), array)  # should be changed to [0:3] when part-array is working
+    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Gauge.Data[0:3].Depth'), array)
 
-# should be uncommented when part-array is working:
-#def test_set_list():
-#    values = ['top', datetime.now().strftime('%H:%M')]
-#    c.DoSet('PROSPER.SIN.EQP.Down.Data[0:1].Label', values)
-#    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Down.Data[0:1].Label'), values)
+def test_set_list():
+    values = ['top', datetime.now().strftime('%H:%M')]
+    c.DoSet('PROSPER.SIN.EQP.Down.Data[0:1].Label', values)
+    assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Down.Data[0:1].Label'), values)
 
 def test_product_prefix():
     with pytest.raises(ValueError, match='The tag string product prefix was not recognised'):
@@ -75,5 +82,6 @@ def test_variable_names():
 
 def test_end():
     c.DoCmd('PROSPER.SHUTDOWN')
+    c.DoCmd('GAP.SHUTDOWN')
     c.disconnect()
     assert c.status == 'Disconnected'
