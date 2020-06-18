@@ -47,7 +47,7 @@ class OpenServer:
             self.disconnect()
             raise
 
-    def DoSet(self, Sv, Val):
+    def DoSet(self, Sv, Val=''):
         """
         The DoSet command is used to set the value of a data item.
         OpenServer access strings can be found directly from an IPM tool by Ctrl + Right-Click mouse on a field in an
