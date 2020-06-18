@@ -10,6 +10,11 @@ gapfile = os.path.join(my_path, "../resources/gap_testfile.gap")
 now = str(datetime.now())
 
 c = OpenServer()
+
+def test_connect():
+    with pytest.raises(ConnectionError, match='Unable to establish a connection'):
+        c.connect('dummy')
+
 c.connect()
 
 def test_openserver_functions():
