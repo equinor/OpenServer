@@ -1,3 +1,6 @@
+## 1.13
+* Adds .gitignore
+
 ## 1.12
 * Improved error message when unable to connect
 * DoSet to allow for no arguments
