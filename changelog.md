@@ -1,3 +1,7 @@
+## 1.12
+* Improved error message when unable to connect
+* DoSet to allow for no arguments
+
 ## 1.11
 * Improved array return from DoGet 
 
