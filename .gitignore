@@ -1,0 +1,10 @@
+# Bytecode compilations
+__pycache__
+
+# Distribution / packaging
+build/
+dist/
+sdist/
+
+# VS code
+.vscode/
