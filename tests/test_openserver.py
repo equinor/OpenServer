@@ -10,6 +10,11 @@ gapfile = os.path.join(my_path, "../resources/gap_testfile.gap")
 now = str(datetime.now())
 
 c = OpenServer()
+
+def test_connect():
+    with pytest.raises(ConnectionError, match='Unable to establish a connection'):
+        c.connect('dummy')
+
 c.connect()
 
 def test_openserver_functions():
@@ -63,6 +68,13 @@ def test_set_list():
     values = ['top', datetime.now().strftime('%H:%M')]
     c.DoSet('PROSPER.SIN.EQP.Down.Data[0:1].Label', values)
     assert np.array_equal(c.DoGet('PROSPER.SIN.EQP.Down.Data[0:1].Label'), values)
+
+def test_set_novalue():
+    wc = [60, 70, 80]
+    c.DoSet('PROSPER.ANL.SYS.Sens.SensDB.Vars[0]', 16)
+    c.DoSet('PROSPER.ANL.SYS.Sens.SensDB.Sens[6].Vals[0,1,2]', wc)
+    c.DoSet('PROSPER.ANL.SYS.Sens.SensDB.Clear')
+    assert c.DoGet('PROSPER.ANL.SYS.Sens.SensDB.Sens[6].Vals.Count') == 0
 
 def test_product_prefix():
     with pytest.raises(ValueError, match='The tag string product prefix was not recognised'):

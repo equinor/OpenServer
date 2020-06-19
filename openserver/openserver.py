@@ -1,18 +1,23 @@
 import win32com.client
 import numpy as np
+import pythoncom
 
 class OpenServer:
     def __init__(self):
         self.status = "Disconnected"
         self.server = None
 
-    def connect(self):
+    def connect(self, com='PX32.OpenServer.1'):
         """
         Method used to connect to the Petroleum Experts com object which also checks out the license
+        com {string} -- Petroleum Experts COM object
         """
-        self.server = win32com.client.Dispatch("PX32.OpenServer.1")
-        self.status = "Connected"
-        return print("OpenServer is connected")
+        try:
+            self.server = win32com.client.Dispatch(com)
+            self.status = "Connected"
+            return print("OpenServer is connected")
+        except pythoncom.com_error:
+            raise ConnectionError("Unable to establish a connection") from None
 
     def disconnect(self):
         """
@@ -42,7 +47,7 @@ class OpenServer:
             self.disconnect()
             raise
 
-    def DoSet(self, Sv, Val):
+    def DoSet(self, Sv, Val=''):
         """
         The DoSet command is used to set the value of a data item.
         OpenServer access strings can be found directly from an IPM tool by Ctrl + Right-Click mouse on a field in an
