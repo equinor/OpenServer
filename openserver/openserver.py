@@ -1,7 +1,6 @@
 import win32com.client
 import numpy as np
 import pythoncom
-import time
 
 def GetAppName(Cmd):
     """
@@ -79,61 +78,7 @@ class OpenServer:
             self.disconnect()
             raise
 
-    def DoSlowCmd(self, Cmd):
-        """
-        The DoSlowCmd function is used to perform calculations and other functions such as file opening in an IPM tool.
-        OpenServer command strings can be found in the OpenServer User Manual or in-menu of some IPM tools.
-        
-        DoSlowCmd compared to DoCmd loop with an IPM tool status to check if it is busy avoiding the timeout of the script.
-        
-        Arguments:
-            Cmd {string} -- OpenServer command string
-        """
-        
-        
-        step = 0.001
-        bLoop = False
-        App=GetAppName(Cmd)
-        
-        if not self.status == 'Connected':
-            self.connect()
-        try:
-            Err = self.server.DoCommandAsync(Cmd)
-            if Err > 0:
-                self.error = self.server.GetErrorDescription(Err)
-                raise ValueError(self.error)
-
-            while self.server.IsBusy(App)>0:
-                if step < 2:
-                    step = step * 2
-
-                starttime = time.time()
-                endtime = starttime + step
-
-                bLoop = True
-                while bLoop==True:
-                    CurrentTime = time.time()
-
-                    #Rem Check first for the case where we have gone over midnight
-                    #Rem and the number of seconds will go back to zero
-
-                    if CurrentTime < starttime:
-                        bLoop = False
-                    #Rem Now check for the 2 second pause finishing
-                    elif CurrentTime > endtime:
-                        bLoop = False
-                pass
-            pass
-            Err = self.server.GetLastError(App)
-
-            if Err > 0:
-                self.error=self.server.GetErrorDescription(Err)
-                raise ValueError(self.error)
-
-        except ValueError as exc:
-            print(exc)
-            self.disconnect()
-            raise
+    
             
     def DoSet(self, Sv, Val=''):
         """
