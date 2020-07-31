@@ -1,7 +1,6 @@
 #dict of PROSPER on some features. Used to revert back from integer to string
 
-#main dict in relation to variable name and sub dict:
-
+#Main dict in relation to variable name and sub dict:
 mainDict={'PROSPER.SIN.SUM.FLUID':dFLUID,
 'PROSPER.SIN.SUM.PVTMODEL':dPVTMODEL,
 'PROSPER.SIN.SUM.EOSMODEL':dEOSMODEL,
