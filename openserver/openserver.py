@@ -1,6 +1,38 @@
 import win32com.client
 import numpy as np
 import pythoncom
+import time
+
+def GetAppName(Cmd):
+    """
+    Function used to pull from the Cmd string the application name used.
+    
+    Arguments:
+        Cmd (string) --- OpenServer command string 
+    Return:
+        AppName (string) if it exists or None
+    """
+    flag=False
+    Pos=0
+    i=0
+    while flag==False:
+        if Cmd[i]=='.':
+            flag=True
+            Pos=i
+        i = i+1
+        if i>7 or i>len(Cmd)-1:
+            flag=True
+        pass
+    
+    if Pos < 2:
+        return print("Badly formed tag string")
+   
+    AppName = Cmd[0:Pos]
+    
+    if AppName not in ["PROSPER", "MBAL","GAP", "PVT"]:
+        return print("Unrecognised application name in tag string")  
+        
+    return AppName
 
 class OpenServer:
     def __init__(self):
@@ -47,6 +79,62 @@ class OpenServer:
             self.disconnect()
             raise
 
+    def DoSlowCmd(self, Cmd):
+        """
+        The DoSlowCmd function is used to perform calculations and other functions such as file opening in an IPM tool.
+        OpenServer command strings can be found in the OpenServer User Manual or in-menu of some IPM tools.
+        
+        DoSlowCmd compared to DoCmd loop with an IPM tool status to check if it is busy avoiding the timeout of the script.
+        
+        Arguments:
+            Cmd {string} -- OpenServer command string
+        """
+        
+        
+        step = 0.001
+        bLoop = False
+        App=GetAppName(Cmd)
+        
+        if not self.status == 'Connected':
+            self.connect()
+        try:
+            Err = self.server.DoCommandAsync(Cmd)
+            if Err > 0:
+                self.error = self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+
+            while self.server.IsBusy(App)>0:
+                if step < 2:
+                    step = step * 2
+
+                starttime = time.time()
+                endtime = starttime + step
+
+                bLoop = True
+                while bLoop==True:
+                    CurrentTime = time.time()
+
+                    #Rem Check first for the case where we have gone over midnight
+                    #Rem and the number of seconds will go back to zero
+
+                    if CurrentTime < starttime:
+                        bLoop = False
+                    #Rem Now check for the 2 second pause finishing
+                    elif CurrentTime > endtime:
+                        bLoop = False
+                pass
+            pass
+            Err = self.server.GetLastError(App)
+
+            if Err > 0:
+                self.error=self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+
+        except ValueError as exc:
+            print(exc)
+            self.disconnect()
+            raise
+            
     def DoSet(self, Sv, Val=''):
         """
         The DoSet command is used to set the value of a data item.
