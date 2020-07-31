@@ -2,37 +2,6 @@ import win32com.client
 import numpy as np
 import pythoncom
 
-def GetAppName(Cmd):
-    """
-    Function used to pull from the Cmd string the application name used.
-    
-    Arguments:
-        Cmd (string) --- OpenServer command string 
-    Return:
-        AppName (string) if it exists or None
-    """
-    flag=False
-    Pos=0
-    i=0
-    while flag==False:
-        if Cmd[i]=='.':
-            flag=True
-            Pos=i
-        i = i+1
-        if i>7 or i>len(Cmd)-1:
-            flag=True
-        pass
-    
-    if Pos < 2:
-        return print("Badly formed tag string")
-   
-    AppName = Cmd[0:Pos]
-    
-    if AppName not in ["PROSPER", "MBAL","GAP", "PVT"]:
-        return print("Unrecognised application name in tag string")  
-        
-    return AppName
-
 class OpenServer:
     def __init__(self):
         self.status = "Disconnected"
@@ -157,7 +126,7 @@ class OpenServer:
 
     def GetAppName(self, Strval):
         return Strval.split('.')[0]
-
+    
 def is_documented_by(original):
     def wrapper(target):
         target.__doc__ = original.__doc__
