@@ -1,6 +1,34 @@
-#dict of PROSPE on some features. Used to revert back from integer to string
+#dict of PROSPER on some features. Used to revert back from integer to string
 
+#main dict in relation to variable name and sub dict:
 
+mainDict={'PROSPER.SIN.SUM.FLUID':dFLUID,
+'PROSPER.SIN.SUM.PVTMODEL':dPVTMODEL,
+'PROSPER.SIN.SUM.EOSMODEL':dEOSMODEL,
+'PROSPER.SIN.SUM.SEPARATOR':dSEPARATOR,
+'PROSPER.SIN.SUM.EMULSION':dEMULSION,
+'PROSPER.SIN.SUM.HYDRATE':dHYDRATE,
+'PROSPER.SIN.SUM.FLOWTYPE':dFLOWTYPE,
+'PROSPER.SIN.SUM.WELLTYPE':dWELLTYPE,
+'PROSPER.SIN.SUM.LIFTMETHOD':dLIFTMETHOD,
+'PROSPER.SIN.SUM.PREDICT':dPREDICT,
+'PROSPER.SIN.SUM.TEMPMODEL':dTEMPMODEL,
+'PROSPER.SIN.SUM.RANGE':dRANGE,
+'PROSPER.SIN.SUM.OUTPUT':dOUTPUT,
+'PROSPER.SIN.SUM.STEAM':dSTEAM,
+'PROSPER.SIN.SUM.COMPLETION':dCOMPLETION,
+'PROSPER.SIN.SUM.GRAVELPACK':dGRAVELPACK,
+'PROSPER.SIN.SUM.GASCONING':dGASCONING,
+'PROSPER.PVT.INPUT.PBCORR':dPB,
+'PROSPER.PVT.INPUT.UOCORR':dVISCO,
+'PROSPER.SIN.SUM.VisMod':dVISCOMOD,
+'PROSPER.ANL.QLG.Dome':dDOMECORR, 
+'PROSPER.ANL.QLG.InjPoint':dORIFICE,
+'PROSPER.ANL.SYS.SolutionNode':dSOLNODE,
+'PROSPER.ANL.SYS.RateType':dRATETYPE 
+         }
+
+#Sub dict with the relation between integer and description string:
 dFLUID={0: 'Oil' ,1:'Gas' ,2:'Condensate'}
 dPVTMODEL={0:'Black oil', 2:'EOS'}
 dEOSMODEL={0:'Internal'}
@@ -20,7 +48,7 @@ dLIFTMETHOD={ 0:'None',
           8:'Multiphase Pump',
           9:'Sucker Rod Pump',
           10:'Gas Lift (Intermittent)'}
-#dLIFTTYPE[1]={}
+
 dPREDICT={0:'Pressure only' ,1:'Pressure and Temperature (Offshore)' ,2:'Pressure and Temperature (On land)'}
 dTEMPMODEL={0:'Rough Approximation', 1: 'Enthaply Balance', 2: 'Improved Approximation'}
 dRANGE={0:'Full system',1:'Pipeline only'}
@@ -94,7 +122,9 @@ dSOLNODE={3:'Wellhead',
 
 dRATETYPE={
          0:'Fluid rate',   
-          1:'Oil rate',
-            3:'HC mass flow rate',
-            2:'Gas rate'
+         1:'Oil rate',
+         3:'HC mass flow rate',
+         2:'Gas rate'
 }
+
+
