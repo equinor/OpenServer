@@ -1,5 +1,6 @@
 import win32com.client
 import numpy as np
+import time
 import pythoncom
 
 class OpenServer:
@@ -121,7 +122,40 @@ class OpenServer:
             print(exc)
             self.disconnect()
             raise
-
+    def DoSlowCmd(self, Cmd):
+        if not self.status == "Connected":
+            self.connect()
+        try:
+            step = 0.001
+            AppName = self.GetAppName(Cmd)
+            Err = self.server.DoCommandAsync(Cmd)
+            if Err > 0:
+                self.error = self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+            while self.server.IsBusy(AppName) > 0:
+                if step < 2:
+                    step = step * 2
+                time.sleep(step)
+            AppName = self.GetAppName(Cmd)
+            Err = self.server.GetLastError(AppName)
+            if Err > 0:
+                self.error = self.server.GetErrorDescription(Err)
+                raise ValueError(self.error)
+                
+        except ValueError as exc:
+            print(exc)
+            self.disconnect()
+            raise
+            
+    def DoGAPFunc(self, Gv):
+        self.DoSlowCmd(Gv)
+        DoGAPFunc = self.DoGet("GAP.LASTCMDRET")
+        Err = self.server.GetLastError("GAP")
+        if Err > 0:
+            self.error = self.server.GetErrorDescription(Err)
+            raise ValueError(self.error)
+        return DoGAPFunc
+    
     def GetAppName(self, Strval):
         return Strval.split('.')[0]
 
@@ -151,4 +185,18 @@ def DoGet(Gv):
     if not '_petex' in globals():
         _petex = OpenServer()
     _petex.DoGet(Gv)
+    
+@is_documented_by(OpenServer.DoSlowCmd)
+def DoSlowCmd(Cmd):
+    global _petex
+    if not '_petex' in globals():
+        _petex = OpenServer()
+    _petex.DoSlowCmd(Cmd)
+
+@is_documented_by(OpenServer.DoGAPFunc)
+def DoGAPFunc(Gv):
+    global _petex
+    if not '_petex' in globals():
+        _petex = OpenServer()
+    _petex.DoGAPFunc(Gv)
 
