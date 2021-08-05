@@ -46,7 +46,7 @@ class OpenServer:
             print(exc)
             self.disconnect()
             raise
-    
+
     def DoSet(self, Sv, Val=''):
         """
         The DoSet command is used to set the value of a data item.
@@ -133,7 +133,7 @@ class OSconnection():
     
     Example:
     With OSconnection() as c:
-        c.DoSet('target', 'value')
+        c.DoSet(Sv='target', Val='value')
         ...do other things...
     """
     def __init__(self):
