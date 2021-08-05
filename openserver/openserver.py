@@ -46,8 +46,6 @@ class OpenServer:
             print(exc)
             self.disconnect()
             raise
-
-    
             
     def DoSet(self, Sv, Val=''):
         """
