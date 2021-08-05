@@ -126,6 +126,27 @@ class OpenServer:
 
     def GetAppName(self, Strval):
         return Strval.split('.')[0]
+
+class OSconnect():
+    """
+    Custom context for managing connections with the server and preventing licence blockage.
+    In case of any error, the script will automatically disconnect from the server and then raising an exception.
+    This class shall be used with a "With" statement. 
+    
+    Example:
+    With OSconnect() as c:
+        c.DoSet('target', 'value')
+        ...do other things...
+    """
+    def __init__(self):
+        self.server = OpenServer()
+
+    def __enter__(self):
+        self.server.connect()
+        return self.server
+
+    def __exit__(self, *args):
+        self.server.disconnect()
     
 def is_documented_by(original):
     def wrapper(target):
