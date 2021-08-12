@@ -6,7 +6,7 @@ class OpenServer:
     def __init__(self):
         self.status = "Disconnected"
         self.server = None
-        
+
     def __enter__(self): 
         """
         Custom function for managing connections with the server and preventing licence blockage using a "with" statement.
@@ -26,7 +26,7 @@ class OpenServer:
         Refer to __enter__ docstring.
         """
         self.disconnect()
-        
+
     def connect(self, com='PX32.OpenServer.1'):
         """
         Method used to connect to the Petroleum Experts com object which also checks out the license
@@ -144,7 +144,7 @@ class OpenServer:
 
     def GetAppName(self, Strval):
         return Strval.split('.')[0]
-    
+
 def is_documented_by(original):
     def wrapper(target):
         target.__doc__ = original.__doc__
