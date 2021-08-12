@@ -6,7 +6,27 @@ class OpenServer:
     def __init__(self):
         self.status = "Disconnected"
         self.server = None
+        
+    def __enter__(self): 
+        """
+        Custom function for managing connections with the server and preventing licence blockage using a "with" statement.
+        In case of any error, the script will automatically disconnect from the server and then raising an exception.
+        See context manager for more information.
+        
+        Example:
+        with OpenServer() as c:
+            c.DoSet(Sv='target', Val='value')
+            ...do other things...
+        """
+        self.connect()
+        return self
 
+    def __exit__(self, *args):
+        """
+        Refer to __enter__ docstring.
+        """
+        self.disconnect()
+        
     def connect(self, com='PX32.OpenServer.1'):
         """
         Method used to connect to the Petroleum Experts com object which also checks out the license
@@ -124,27 +144,6 @@ class OpenServer:
 
     def GetAppName(self, Strval):
         return Strval.split('.')[0]
-
-class OSconnection():
-    """
-    Custom context for managing connections with the server and preventing licence blockage.
-    In case of any error, the script will automatically disconnect from the server and then raising an exception.
-    This class shall be used with a "With" statement. 
-    
-    Example:
-    With OSconnection() as c:
-        c.DoSet(Sv='target', Val='value')
-        ...do other things...
-    """
-    def __init__(self):
-        self.server = OpenServer()
-
-    def __enter__(self):
-        self.server.connect()
-        return self.server
-
-    def __exit__(self, *args):
-        self.server.disconnect()
     
 def is_documented_by(original):
     def wrapper(target):
