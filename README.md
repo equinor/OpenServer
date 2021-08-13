@@ -39,7 +39,7 @@ c.DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
 c.disconnect()
 ```
 
-Or
+or
 
 ```
 from openserver import OpenServer
