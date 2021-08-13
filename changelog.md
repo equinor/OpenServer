@@ -1,3 +1,6 @@
+## 1.14
+* Added custom context manager to use a "with" statement for managing connections
+
 ## 1.13
 * Adds .gitignore
 
