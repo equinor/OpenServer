@@ -39,6 +39,17 @@ c.DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
 c.disconnect()
 ```
 
+or
+
+```
+from openserver import OpenServer
+
+with OpenServer() as c:
+    c.DoCmd('PROSPER.START()')
+    c.DoCmd('PROSPER.OPENFILE("C:\\well_2.OUT")')
+    c.DoSet('PROSPER.SIN.SUM.Comments', 'Testing OpenServer from Python')
+```
+
 #### by importing all modules ####
 
 ```

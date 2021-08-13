@@ -7,6 +7,26 @@ class OpenServer:
         self.status = "Disconnected"
         self.server = None
 
+    def __enter__(self): 
+        """
+        Custom function for managing connections with the server and preventing licence blockage using a "with" statement.
+        In case of any error, the script will automatically disconnect from the server and then raising an exception.
+        See context manager for more information.
+        
+        Example:
+        with OpenServer() as c:
+            c.DoSet(Sv='target', Val='value')
+            ...do other things...
+        """
+        self.connect()
+        return self
+
+    def __exit__(self, *args):
+        """
+        Refer to __enter__ docstring.
+        """
+        self.disconnect()
+
     def connect(self, com='PX32.OpenServer.1'):
         """
         Method used to connect to the Petroleum Experts com object which also checks out the license
