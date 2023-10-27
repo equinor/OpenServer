@@ -1,3 +1,7 @@
+## 1.15
+* Changed from setup.py to poetry for dependencies and packaging
+* Added Github Actions for test-deployment to Test PyPI
+
 ## 1.14
 * Added custom context manager to use a "with" statement for managing connections
 

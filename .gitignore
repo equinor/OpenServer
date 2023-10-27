@@ -8,3 +8,6 @@ sdist/
 
 # VS code
 .vscode/
+
+# pytest
+.pytest*/

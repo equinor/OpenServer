@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "openserver"
+version = "1.15"
+description = "Petroleum Experts OpenServer calculations"
+authors = ["Stian Molvik <stimo@equinor.com>"]
+license = "GNU GPL"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.9,<3.13"
+pywin32 = "^306"
+numpy = "^1.26.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.4.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
