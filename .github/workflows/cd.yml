@@ -1,0 +1,35 @@
+name: Deploy to PyPi
+on:  
+  release:     
+    types: [created]  
+jobs:  
+  upload:  
+    environment:
+      name: release
+      url: https://pypi.org/p/openserver
+    permissions:
+      contents: read
+      id-token: write
+    
+    runs-on: ubuntu-latest
+    steps:        
+      - name: "Check out code"
+        uses: actions/checkout@v3
+      
+      - name: "Set up Python"
+        uses: actions/setup-python@v4
+        with:          
+          python-version: 3.9      
+      
+      - name: "Install dependencies"            
+        run: |
+          python3 -m pip install --upgrade pip              
+          python3 -m pip install poetry
+
+      - name: "Build distributions"            
+        run: |              
+          poetry build
+          
+      - name: "Publish package distributions to PyPI"
+        uses: pypa/gh-action-pypi-publish@release/v1
+        
