@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "openserver"
-version = "1.14"
+version = "1.15"
 description = "Petroleum Experts OpenServer calculations"
 authors = ["Stian Molvik <stimo@equinor.com>"]
 license = "GNU GPL"
