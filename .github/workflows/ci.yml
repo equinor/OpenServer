@@ -12,7 +12,7 @@ jobs:
   test-deploy:
     environment:
       name: test_release
-      url: https://test.pypi.org/p/pysand
+      url: https://test.pypi.org/p/openserver
     permissions:
       contents: read
       id-token: write
