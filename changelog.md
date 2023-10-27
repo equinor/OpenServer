@@ -1,4 +1,4 @@
-## 1.15
+## 1.151
 * Changed from setup.py to poetry for dependencies and packaging
 * Added Github Actions for test-deployment to Test PyPI
 
