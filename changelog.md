@@ -1,6 +1,10 @@
+## 1.152
+* Added automatic versioning information from pyproject.toml
+
 ## 1.151
 * Changed from setup.py to poetry for dependencies and packaging
 * Added Github Actions for test-deployment to Test PyPI
+* Added Github actions for deployment to PyPi on new release
 
 ## 1.14
 * Added custom context manager to use a "with" statement for managing connections
