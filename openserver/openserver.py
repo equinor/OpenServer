@@ -2,6 +2,16 @@ import win32com.client
 import numpy as np
 import pythoncom
 
+
+def create_numpy_array(large_string: str) -> np.array:
+    str_list = large_string[0:-1].split('|')
+    is_numeric = np.char.isdigit(str_list).all()
+
+    if is_numeric:
+        return np.asarray(str_list).astype(float)
+    else:
+        return np.asarray(str_list)
+
 class OpenServer:
     def __init__(self):
         self.status = "Disconnected"
@@ -125,12 +135,7 @@ class OpenServer:
                 value = int(value)
             elif '|' in value:  # Checking if | in string is returned
                 if any(x in Gv for x in (',', '[$]', '@', ':')):
-                    num_array = np.fromstring(value[0:-1], sep="|", dtype=float)
-                    str_array = np.array(value[0:-1].split('|'))
-                    if num_array.size == str_array.size:  
-                        value = num_array  # Return numeric array
-                    else:
-                        value = str_array  # Return an array of strings
+                    value = create_numpy_array(value)
             else:
                 try:
                     value = float(value)  # Checking if float
