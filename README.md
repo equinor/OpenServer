@@ -3,6 +3,8 @@
 </p>
 
 [![PyPI](https://img.shields.io/pypi/v/openserver)](https://pypi.org/project/openserver/)
+[![SCM Compliance](https://scm-compliance-api.radix.equinor.com/repos/equinor/openserver/badge)](https://scm-compliance-api.radix.equinor.com/repos/equinor/openserver/badge)
+[![Runs on Windows](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)](https://img.shields.io/badge/Windows-0078D6?style=for-the-badge&logo=windows&logoColor=white)
 
 # OpenServer
 Code for running Petroleum Experts OpenServer API commands in Python. More general information about this API protocol can be found on [Petroleum Experts'](https://www.petex.com/products/ipm-suite/openserver/) site.
