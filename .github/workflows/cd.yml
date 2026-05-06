@@ -1,7 +1,7 @@
 name: Deploy to PyPi
 on:  
   release:     
-    types: [created]  
+    types: [published]  
 jobs:  
   upload:  
     environment:
@@ -15,20 +15,16 @@ jobs:
     steps:        
       - name: "Check out code"
         uses: actions/checkout@v3
-      
-      - name: "Set up Python"
-        uses: actions/setup-python@v4
-        with:          
-          python-version: 3.9      
-      
-      - name: "Install dependencies"            
-        run: |
-          python3 -m pip install --upgrade pip              
-          python3 -m pip install poetry
 
-      - name: "Build distributions"            
-        run: |              
-          poetry build
+      - name: "Set up uv"
+        uses: astral-sh/setup-uv@v3
+        with:
+          python-version: "3.11"
+
+      - name: "Build distributions"
+        run: |
+          uv build
+          uv tool run twine check dist/*
           
       - name: "Publish package distributions to PyPI"
         uses: pypa/gh-action-pypi-publish@release/v1

@@ -1,3 +1,8 @@
+## 1.153
+* Switched packaging and dependency management from Poetry to uv
+* Updated CI/CD pipelines to use Python 3.11 and uv
+* Expanded supported Python versions from 3.9 through 3.13
+
 ## 1.152
 * Added automatic versioning information from pyproject.toml
 

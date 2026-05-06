@@ -11,3 +11,7 @@ sdist/
 
 # pytest
 .pytest*/
+
+# Environment
+.venv/
+venv/

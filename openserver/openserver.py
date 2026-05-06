@@ -1,11 +1,12 @@
 import win32com.client
 import numpy as np
 import pythoncom
+from typing import Any
 
 class OpenServer:
     def __init__(self):
         self.status = "Disconnected"
-        self.server = None
+        self.server: Any = None
 
     def __enter__(self): 
         """
@@ -35,7 +36,7 @@ class OpenServer:
         try:
             self.server = win32com.client.Dispatch(com)
             self.status = "Connected"
-            return print("OpenServer is connected")
+            print("OpenServer is connected")
         except pythoncom.com_error:
             raise ConnectionError("Unable to establish a connection") from None
 
@@ -45,7 +46,7 @@ class OpenServer:
         """
         self.server = None
         self.status = "Disconnected"
-        return print("OpenServer has been disconnected")
+        print("OpenServer has been disconnected")
 
     def DoCmd(self, Cmd):
         """
@@ -125,9 +126,12 @@ class OpenServer:
                 value = int(value)
             elif '|' in value:  # Checking if | in string is returned
                 if any(x in Gv for x in (',', '[$]', '@', ':')):
-                    num_array = np.fromstring(value[0:-1], sep="|", dtype=float)
                     str_array = np.array(value[0:-1].split('|'))
-                    if num_array.size == str_array.size:  
+                    try:
+                        num_array = str_array.astype(float)
+                    except ValueError:
+                        num_array = np.array([])
+                    if num_array.size == str_array.size:
                         value = num_array  # Return numeric array
                     else:
                         value = str_array  # Return an array of strings

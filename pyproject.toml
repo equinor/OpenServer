@@ -1,19 +1,25 @@
-[tool.poetry]
+[project]
 name = "openserver"
-version = "1.152"
+version = "1.153"
 description = "Petroleum Experts OpenServer calculations"
-authors = ["Stian Molvik <stimo@equinor.com>"]
-license = "GNU GPL"
+authors = [{ name = "Stian Molvik", email = "stimo@equinor.com" }]
+license = { text = "GNU GPL" }
 readme = "README.md"
+requires-python = ">=3.9,<3.14"
+dependencies = [
+    "pywin32>=307",
+    "numpy>=1.26.1; python_version < '3.13'",
+    "numpy>=2.1; python_version >= '3.13'",
+]
 
-[tool.poetry.dependencies]
-python = ">=3.9,<3.13"
-pywin32 = "^306"
-numpy = "^1.26.1"
-
-[tool.poetry.group.dev.dependencies]
-pytest = "^7.4.3"
+[dependency-groups]
+dev = [
+    "pytest>=7.4.3,<8",
+]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["openserver"]
