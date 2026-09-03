@@ -1,3 +1,8 @@
+## 1.154
+* Added `PxOnlineServer`, a remote OpenServer client for Petroleum Experts PxOnlineServer (REST API)
+* Added Model Catalogue support: browse folders/files by path, download files, and load a catalogue file into a running session via `open_catalogue_file`
+* Added `requests` as a dependency for the remote client
+
 ## 1.153
 * Switched packaging and dependency management from Poetry to uv
 * Updated CI/CD pipelines to use Python 3.11 and uv

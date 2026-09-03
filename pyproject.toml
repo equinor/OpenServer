@@ -1,13 +1,15 @@
 [project]
 name = "openserver"
-version = "1.153"
+version = "1.154"
 description = "Petroleum Experts OpenServer calculations"
-authors = [{ name = "Stian Molvik", email = "stimo@equinor.com" }]
+authors = [{ name = "Thorjan Knudsvik" }, { name = "Stian Molvik" }]
+maintainers = [{ name = "So Gunnerød" }]
 license = { text = "GNU GPL" }
 readme = "README.md"
 requires-python = ">=3.9,<3.14"
 dependencies = [
-    "pywin32>=307",
+    "pywin32>=307; platform_system == 'Windows'",
+    "requests>=2.32",
     "numpy>=1.26.1; python_version < '3.13'",
     "numpy>=2.1; python_version >= '3.13'",
 ]

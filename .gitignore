@@ -15,3 +15,6 @@ sdist/
 # Environment
 .venv/
 venv/
+
+# Swagger
+swagger.json
