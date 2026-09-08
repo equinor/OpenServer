@@ -108,7 +108,7 @@ with PxOnlineServer(base_url="http://my-pxserver:8056",
                     module_name="IPM-OS") as c:
     # Remote equivalent of PROSPER.OPENFILE - give the catalogue host + file path
     c.open_catalogue_file(
-        "Root/Europe/Norway/North Sea/Yggdrasil/ByteAll/ProsperModel/SK1.Out",
+        "Root/Region/Field/Company/ProsperModel/Well.Out",
         host_alias="MyCatalogueHost",
     )
 

@@ -397,7 +397,7 @@ class PxOnlineServer:
         """Download a single catalogue file by its path; returns the file's bytes.
 
         `file_path` is the full catalogue path incl. the file name, e.g.
-        'Root/Europe/Norway/North Sea/Yggdrasil/ByteAll/ProsperModel/SK1.Out'.
+        'Root/Region/Field/Company/ProsperModel/Well.Out'.
         """
         file_name = file_path.replace("\\", "/").rpartition("/")[2]
         file_id = self.mc_get_file_id_by_path(catalogue_guid, file_path)
